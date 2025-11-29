@@ -115,6 +115,7 @@ const CourseGraph = ({ courses, onCourseClick }) => {
                 nodeTypes={nodeTypes}
                 onNodeClick={onNodeClick}
                 fitView
+                proOptions={{ hideAttribution: true }}
                 attributionPosition="bottom-right"
             >
                 <Background color="#aaa" gap={16} />
