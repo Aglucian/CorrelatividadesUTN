@@ -11,10 +11,13 @@ import ControlsNode from './ControlsNode';
 import GlossaryNode from './GlossaryNode';
 import CourseNode from './CourseNode';
 
+import TitleNode from './TitleNode';
+
 const nodeTypes = {
     course: CourseNode,
     controls: ControlsNode,
-    glossary: GlossaryNode
+    glossary: GlossaryNode,
+    title: TitleNode
 };
 
 const getLayoutedElements = (nodes, edges) => {
@@ -95,6 +98,15 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
             type: 'glossary',
             data: {},
             position: { x: -600, y: -250 },
+            draggable: false,
+            zIndex: 1000
+        });
+
+        initialNodes.push({
+            id: 'title-node',
+            type: 'title',
+            data: {},
+            position: { x: 0, y: -350 }, // Centered above everything
             draggable: false,
             zIndex: 1000
         });

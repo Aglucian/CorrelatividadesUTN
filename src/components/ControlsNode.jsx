@@ -79,7 +79,7 @@ const ControlsNode = ({ data }) => {
                             background: '#1e293b',
                             color: 'white',
                             flex: 1,
-                            width: '0px'
+                            minWidth: '120px'
                         }}
                     />
                     <button
