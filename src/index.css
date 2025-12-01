@@ -6,7 +6,7 @@
   --warning-color: #eab308;
   --panel-bg: rgba(30, 41, 59, 0.7);
   --panel-border: rgba(148, 163, 184, 0.2);
-  
+
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -57,7 +57,7 @@ body {
   background: var(--panel-bg);
   color: var(--text-color);
   padding: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .react-flow__node:hover {
@@ -67,7 +67,8 @@ body {
 
 /* Node States */
 .node-pending {
-  border-color: #64748b; /* Slate 500 */
+  border-color: #64748b;
+  /* Slate 500 */
 }
 
 .node-cursada {
@@ -97,6 +98,7 @@ body {
   from {
     stroke-dashoffset: 10;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -125,4 +127,21 @@ body {
 
 .upload-btn:hover {
   background: #2563eb;
+}
+
+/* Available Node State */
+.node-available {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+/* Edge States */
+.edge-cursada .react-flow__edge-path {
+  stroke: var(--warning-color);
+  stroke-width: 2;
+}
+
+.edge-final .react-flow__edge-path {
+  stroke: var(--success-color);
+  stroke-width: 2;
 }

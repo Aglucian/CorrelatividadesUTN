@@ -60,7 +60,12 @@ const CourseGraph = ({ courses, onCourseClick }) => {
         const initialNodes = courses.map((course) => ({
             id: course.id,
             type: 'course',
-            data: { label: course.name, status: course.status, level: course.level },
+            data: {
+                label: course.name,
+                status: course.status,
+                level: course.level,
+                isAvailable: course.isAvailable
+            },
             position: { x: 0, y: 0 },
         }));
 
@@ -72,6 +77,13 @@ const CourseGraph = ({ courses, onCourseClick }) => {
                     // Check if prereq exists
                     if (courses.find(c => c.id === prereqId)) {
                         const sourceNode = courses.find(c => c.id === prereqId);
+
+                        let edgeClass = '';
+                        if (sourceNode) {
+                            if (sourceNode.status === 'cursada') edgeClass = 'edge-cursada';
+                            else if (sourceNode.status === 'final') edgeClass = 'edge-final';
+                        }
+
                         const isAnimated = sourceNode && (sourceNode.status === 'final' || sourceNode.status === 'cursada');
 
                         initialEdges.push({
@@ -79,7 +91,7 @@ const CourseGraph = ({ courses, onCourseClick }) => {
                             source: prereqId,
                             target: course.id,
                             animated: isAnimated,
-                            className: isAnimated ? 'edge-animated' : '',
+                            className: edgeClass,
                             markerEnd: {
                                 type: MarkerType.ArrowClosed,
                             },

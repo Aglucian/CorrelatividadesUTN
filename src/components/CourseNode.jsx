@@ -2,12 +2,17 @@ import React, { memo } from 'react';
 import { Handle, Position } from 'reactflow';
 
 const CourseNode = ({ data, isConnectable }) => {
-  const { label, status } = data;
+  const { label, status, isAvailable } = data;
 
   // Determine class based on status
   let statusClass = 'node-pending';
   if (status === 'cursada') statusClass = 'node-cursada';
   if (status === 'final') statusClass = 'node-final';
+
+  // Add available class if pending and available
+  if (status === 'pending' && isAvailable) {
+    statusClass += ' node-available';
+  }
 
   return (
     <div className={`react-flow__node ${statusClass}`}>
