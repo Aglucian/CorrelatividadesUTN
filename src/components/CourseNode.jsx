@@ -20,7 +20,7 @@ const CourseNode = ({ data, isConnectable }) => {
   }
 
   return (
-    <div className={`react-flow__node ${statusClass}`}>
+    <div className={`course-node ${statusClass}`}>
       <Handle
         type="target"
         position={Position.Top}
