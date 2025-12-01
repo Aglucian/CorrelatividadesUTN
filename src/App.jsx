@@ -1,14 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import CourseGraph from './components/CourseGraph';
-import FileUpload from './components/FileUpload';
+import sistemasData from '../correlativas/sistemas.json';
 import './index.css';
 
 function App() {
   const [courses, setCourses] = useState([]);
-
-  const handleDataLoaded = useCallback((parsedCourses) => {
-    setCourses(parsedCourses);
-  }, []);
 
   const handleCourseClick = useCallback((courseId) => {
     setCourses((prevCourses) => {
@@ -26,10 +22,22 @@ function App() {
     });
   }, []);
 
+  const loadCareer = (data) => {
+    const romanToNumber = { 'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5 };
+
+    const parsedCourses = data.map(item => ({
+      id: String(item.id),
+      name: item.asignatura,
+      level: romanToNumber[item.nivel] || 0,
+      prerequisites: item.cursadas_necesarias.map(String),
+      status: 'pending'
+    }));
+
+    setCourses(parsedCourses);
+  };
+
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      <FileUpload onDataLoaded={handleDataLoaded} />
-
       {courses.length === 0 ? (
         <div style={{
           display: 'flex',
@@ -37,10 +45,20 @@ function App() {
           alignItems: 'center',
           height: '100%',
           color: '#94a3b8',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          gap: '20px'
         }}>
           <h1>Web Correlatividades</h1>
-          <p>Upload a PDF to visualize the plan.</p>
+          <p>Selecciona una carrera para visualizar el plan.</p>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button
+              className="upload-btn"
+              onClick={() => loadCareer(sistemasData)}
+              style={{ padding: '10px 20px', cursor: 'pointer' }}
+            >
+              Ingeniería en Sistemas
+            </button>
+          </div>
         </div>
       ) : (
         <CourseGraph courses={courses} onCourseClick={handleCourseClick} />

@@ -1,0 +1,464 @@
+[
+    {
+        "id": 1,
+        "asignatura": "Análisis Matemático I",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 2,
+        "asignatura": "Química General",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 3,
+        "asignatura": "Álgebra y Geometría Analítica",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 4,
+        "asignatura": "Física I",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 5,
+        "asignatura": "Ingeniería y Sociedad",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 6,
+        "asignatura": "Ingeniería Mecánica I (Int)",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 7,
+        "asignatura": "Sistemas de Representación",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 8,
+        "asignatura": "Fundamentos de Informática",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 9,
+        "asignatura": "Materiales No Metálicos",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            2,
+            4
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 10,
+        "asignatura": "Estabilidad I",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            1,
+            3,
+            4
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 11,
+        "asignatura": "Materiales Metálicos",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            2,
+            3
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 12,
+        "asignatura": "Análisis Matemático II",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            1,
+            3
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 13,
+        "asignatura": "Física II",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            1,
+            4
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 14,
+        "asignatura": "Ingeniería Ambiental y Seguridad Industrial",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            2,
+            4
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 15,
+        "asignatura": "Ingeniería Mecánica II (Int.)",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            4,
+            6
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 16,
+        "asignatura": "Inglés I",
+        "nivel": "II",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 17,
+        "asignatura": "Termodinámica",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            12,
+            13
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "id": 18,
+        "asignatura": "Mecánica Racional",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            10,
+            12
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "id": 19,
+        "asignatura": "Estabilidad II",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            10,
+            12
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "id": 20,
+        "asignatura": "Mediciones y Ensayos",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            10,
+            11,
+            13
+        ],
+        "aprobadas_necesarias": [
+            1,
+            4
+        ]
+    },
+    {
+        "id": 21,
+        "asignatura": "Diseño Mecánico",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            9,
+            10,
+            11
+        ],
+        "aprobadas_necesarias": [
+            4,
+            6,
+            7,
+            8
+        ]
+    },
+    {
+        "id": 22,
+        "asignatura": "Cálculo Avanzado",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            12
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            8
+        ]
+    },
+    {
+        "id": 23,
+        "asignatura": "Ingeniería Mecánica III (Int)",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            9,
+            11,
+            15
+        ],
+        "aprobadas_necesarias": [
+            1,
+            2,
+            4,
+            6
+        ]
+    },
+    {
+        "id": 24,
+        "asignatura": "Probabilidad y Estadística",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            1,
+            3
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 25,
+        "asignatura": "Inglés II",
+        "nivel": "III",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": [
+            16
+        ]
+    },
+    {
+        "id": 26,
+        "asignatura": "Economía",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            15
+        ],
+        "aprobadas_necesarias": [
+            5
+        ]
+    },
+    {
+        "id": 27,
+        "asignatura": "Elementos de Máquinas (Int)",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            9,
+            11,
+            18,
+            19,
+            23
+        ],
+        "aprobadas_necesarias": [
+            2,
+            10,
+            12
+        ]
+    },
+    {
+        "id": 28,
+        "asignatura": "Tecnología del Calor",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            17
+        ],
+        "aprobadas_necesarias": [
+            12,
+            13
+        ]
+    },
+    {
+        "id": 29,
+        "asignatura": "Metrología e Ingeniería de Calidad",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            20,
+            24
+        ],
+        "aprobadas_necesarias": [
+            3,
+            11,
+            13
+        ]
+    },
+    {
+        "id": 30,
+        "asignatura": "Mecánica de los Fluidos",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            17
+        ],
+        "aprobadas_necesarias": [
+            12,
+            13
+        ]
+    },
+    {
+        "id": 31,
+        "asignatura": "Electrotecnia y Máquinas Eléctricas",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            12,
+            13
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "id": 32,
+        "asignatura": "Electrónica y Sistemas de Control",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            12,
+            13,
+            22
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "id": 33,
+        "asignatura": "Estabilidad III",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            19
+        ],
+        "aprobadas_necesarias": [
+            1,
+            3,
+            4,
+            10
+        ]
+    },
+    {
+        "id": 34,
+        "asignatura": "Tecnología de Fabricación",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            27,
+            29
+        ],
+        "aprobadas_necesarias": [
+            9,
+            10,
+            11,
+            21
+        ]
+    },
+    {
+        "id": 35,
+        "asignatura": "Máquinas Alternativas y Turbomáquinas",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            28
+        ],
+        "aprobadas_necesarias": [
+            13,
+            17
+        ]
+    },
+    {
+        "id": 36,
+        "asignatura": "Instalaciones Industriales",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            20,
+            28,
+            30,
+            31,
+            32
+        ],
+        "aprobadas_necesarias": [
+            10,
+            14,
+            17
+        ]
+    },
+    {
+        "id": 37,
+        "asignatura": "Organización Industrial",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            26
+        ],
+        "aprobadas_necesarias": [
+            15
+        ]
+    },
+    {
+        "id": 38,
+        "asignatura": "Legislación",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            15
+        ],
+        "aprobadas_necesarias": [
+            5
+        ]
+    },
+    {
+        "id": 39,
+        "asignatura": "Mantenimiento",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            20,
+            26,
+            27
+        ],
+        "aprobadas_necesarias": [
+            11,
+            13,
+            18,
+            19
+        ]
+    },
+    {
+        "id": 40,
+        "asignatura": "Proyecto Final (Int)",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            27,
+            29,
+            31,
+            32
+        ],
+        "aprobadas_necesarias": [
+            18,
+            19,
+            20,
+            21
+        ]
+    }
+]

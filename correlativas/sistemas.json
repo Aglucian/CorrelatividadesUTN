@@ -1,0 +1,369 @@
+[
+    {
+        "id": 1,
+        "asignatura": "Análisis Matemático I",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 2,
+        "asignatura": "Álgebra y Geometría Analítica",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 3,
+        "asignatura": "Física I",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 4,
+        "asignatura": "Inglés I",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 5,
+        "asignatura": "Lógica y Estructuras Discretas",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 6,
+        "asignatura": "Algoritmos y Estructuras de Datos",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 7,
+        "asignatura": "Arquitectura de Computadoras",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 8,
+        "asignatura": "Sistemas y Procesos de Negocio",
+        "nivel": "I",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 9,
+        "asignatura": "Análisis Matemático II",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            1,
+            2
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 10,
+        "asignatura": "Física II",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            1,
+            3
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 11,
+        "asignatura": "Ingeniería y Sociedad",
+        "nivel": "II",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 12,
+        "asignatura": "Inglés II",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            4
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 13,
+        "asignatura": "Sintaxis y Semántica de los Lenguajes",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            5,
+            6
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 14,
+        "asignatura": "Paradigmas de Programación",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            5,
+            6
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 15,
+        "asignatura": "Sistemas Operativos",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            7
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 16,
+        "asignatura": "Análisis de Sistemas de Información",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            6,
+            8
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 17,
+        "asignatura": "Probabilidad y Estadística",
+        "nivel": "II",
+        "cursadas_necesarias": [
+            1,
+            2
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 18,
+        "asignatura": "Economía",
+        "nivel": "III",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": [
+            1,
+            2
+        ]
+    },
+    {
+        "id": 19,
+        "asignatura": "Bases de Datos",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            13,
+            16
+        ],
+        "aprobadas_necesarias": [
+            5,
+            6
+        ]
+    },
+    {
+        "id": 20,
+        "asignatura": "Desarrollo de Software",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            14,
+            16
+        ],
+        "aprobadas_necesarias": [
+            5,
+            6
+        ]
+    },
+    {
+        "id": 21,
+        "asignatura": "Comunicación de Datos",
+        "nivel": "III",
+        "cursadas_necesarias": [],
+        "aprobadas_necesarias": [
+            3,
+            7
+        ]
+    },
+    {
+        "id": 22,
+        "asignatura": "Análisis Numérico",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            9
+        ],
+        "aprobadas_necesarias": [
+            1,
+            2
+        ]
+    },
+    {
+        "id": 23,
+        "asignatura": "Diseño de Sistemas de Información",
+        "nivel": "III",
+        "cursadas_necesarias": [
+            14,
+            16
+        ],
+        "aprobadas_necesarias": [
+            4,
+            6,
+            8
+        ]
+    },
+    {
+        "id": 24,
+        "asignatura": "Legislación",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            11
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 25,
+        "asignatura": "Ingeniería y Calidad de Software",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            19,
+            20,
+            23
+        ],
+        "aprobadas_necesarias": [
+            13,
+            14
+        ]
+    },
+    {
+        "id": 26,
+        "asignatura": "Redes de Datos",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            15,
+            21
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 27,
+        "asignatura": "Investigación Operativa",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            17,
+            22
+        ],
+        "aprobadas_necesarias": []
+    },
+    {
+        "id": 28,
+        "asignatura": "Simulación",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            17
+        ],
+        "aprobadas_necesarias": [
+            9
+        ]
+    },
+    {
+        "id": 29,
+        "asignatura": "Tecnologías para la automatización",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            10,
+            22
+        ],
+        "aprobadas_necesarias": [
+            9
+        ]
+    },
+    {
+        "id": 30,
+        "asignatura": "Administración de Sistemas de Información",
+        "nivel": "IV",
+        "cursadas_necesarias": [
+            18,
+            23
+        ],
+        "aprobadas_necesarias": [
+            16
+        ]
+    },
+    {
+        "id": 31,
+        "asignatura": "Inteligencia Artificial",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            28
+        ],
+        "aprobadas_necesarias": [
+            17,
+            22
+        ]
+    },
+    {
+        "id": 32,
+        "asignatura": "Ciencia de Datos",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            28
+        ],
+        "aprobadas_necesarias": [
+            17,
+            19
+        ]
+    },
+    {
+        "id": 33,
+        "asignatura": "Sistemas de Gestión",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            18,
+            27
+        ],
+        "aprobadas_necesarias": [
+            23
+        ]
+    },
+    {
+        "id": 34,
+        "asignatura": "Gestión Gerencial",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            18
+        ],
+        "aprobadas_necesarias": [
+            24,
+            30
+        ]
+    },
+    {
+        "id": 35,
+        "asignatura": "Seguridad en los Sistemas de Información",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            26,
+            30
+        ],
+        "aprobadas_necesarias": [
+            20,
+            21
+        ]
+    },
+    {
+        "id": 36,
+        "asignatura": "Proyecto Final",
+        "nivel": "V",
+        "cursadas_necesarias": [
+            25,
+            26,
+            30
+        ],
+        "aprobadas_necesarias": [
+            12,
+            20,
+            23
+        ]
+    }
+]
