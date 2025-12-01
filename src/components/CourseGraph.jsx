@@ -66,6 +66,7 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+    // Effect for Layout (Nodes & Edges structure)
     useEffect(() => {
         if (!courses || courses.length === 0) return;
 
@@ -83,11 +84,11 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
             position: { x: 0, y: 0 },
         }));
 
-        // Add UI Nodes
+        // Add UI Nodes (Initial creation)
         initialNodes.push({
             id: 'controls-node',
             type: 'controls',
-            data: controlsData,
+            data: controlsData, // Initial data
             position: { x: 400, y: -250 },
             draggable: false,
             zIndex: 1000,
@@ -154,7 +155,22 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
 
         setNodes(layoutedNodes);
         setEdges(layoutedEdges);
-    }, [courses, setNodes, setEdges, controlsData]);
+    }, [courses, setNodes, setEdges]); // Removed controlsData from dependency
+
+    // Effect for updating Controls Data ONLY
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === 'controls-node') {
+                    return {
+                        ...node,
+                        data: { ...node.data, ...controlsData },
+                    };
+                }
+                return node;
+            })
+        );
+    }, [controlsData, setNodes]);
 
     const onNodeClick = useCallback((event, node) => {
         if (node.type === 'course' && onCourseClick) {
