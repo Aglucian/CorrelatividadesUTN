@@ -7,10 +7,13 @@ import ReactFlow, {
     MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import CourseNode from './CourseNode';
+import ControlsNode from './ControlsNode';
+import GlossaryNode from './GlossaryNode';
 
 const nodeTypes = {
     course: CourseNode,
+    controls: ControlsNode,
+    glossary: GlossaryNode
 };
 
 const getLayoutedElements = (nodes, edges) => {
@@ -18,6 +21,7 @@ const getLayoutedElements = (nodes, edges) => {
     // Group nodes by level
     const levels = {};
     nodes.forEach(node => {
+        if (node.type !== 'course') return; // Skip non-course nodes for layout
         const level = node.data.level || 1; // Default to level 1 if missing
         if (!levels[level]) levels[level] = [];
         levels[level].push(node);
@@ -28,6 +32,11 @@ const getLayoutedElements = (nodes, edges) => {
     const NODE_GAP = 20;
 
     const layoutedNodes = [];
+
+    // Add non-course nodes back
+    nodes.forEach(node => {
+        if (node.type !== 'course') layoutedNodes.push(node);
+    });
 
     Object.keys(levels).forEach(levelKey => {
         const levelNodes = levels[levelKey];
@@ -49,7 +58,7 @@ const getLayoutedElements = (nodes, edges) => {
     return { nodes: layoutedNodes, edges };
 };
 
-const CourseGraph = ({ courses, onCourseClick }) => {
+const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
@@ -64,10 +73,35 @@ const CourseGraph = ({ courses, onCourseClick }) => {
                 label: course.name,
                 status: course.status,
                 level: course.level,
-                isAvailable: course.isAvailable
+                isAvailable: course.isAvailable,
+                isCommon: course.isCommon
             },
             position: { x: 0, y: 0 },
         }));
+
+        // Add UI Nodes
+        // Position them relative to the graph content. 
+        // We'll put them slightly above the first level (level 1 is y=0)
+        // Level 1 is at y=0. Let's put controls at y=-300, x=500 (right side)
+        // Glossary at y=-300, x=-500 (left side)
+
+        initialNodes.push({
+            id: 'controls-node',
+            type: 'controls',
+            data: controlsData,
+            position: { x: 400, y: -250 },
+            draggable: false,
+            zIndex: 1000
+        });
+
+        initialNodes.push({
+            id: 'glossary-node',
+            type: 'glossary',
+            data: {},
+            position: { x: -600, y: -250 },
+            draggable: false,
+            zIndex: 1000
+        });
 
         // Create Edges
         const initialEdges = [];
@@ -109,10 +143,10 @@ const CourseGraph = ({ courses, onCourseClick }) => {
 
         setNodes(layoutedNodes);
         setEdges(layoutedEdges);
-    }, [courses, setNodes, setEdges]);
+    }, [courses, setNodes, setEdges, controlsData]);
 
     const onNodeClick = useCallback((event, node) => {
-        if (onCourseClick) {
+        if (node.type === 'course' && onCourseClick) {
             onCourseClick(node.id);
         }
     }, [onCourseClick]);
@@ -131,7 +165,6 @@ const CourseGraph = ({ courses, onCourseClick }) => {
                 attributionPosition="bottom-right"
             >
                 <Background color="#aaa" gap={16} />
-                <Controls />
             </ReactFlow>
         </div>
     );
