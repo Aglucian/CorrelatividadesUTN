@@ -95,6 +95,10 @@ function App() {
       // Prepare data to save: only ID and status to save space/bandwidth
       const progressData = courses.map(c => ({ id: c.id, status: c.status }));
 
+      if (!supabase) {
+        throw new Error('Supabase client not initialized. Check .env.local');
+      }
+
       const { error } = await supabase
         .from('estudiantes')
         .upsert({ id: studentId, materias: progressData });
