@@ -4,9 +4,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn('Supabase keys missing!');
-    console.log('VITE_SUPABASE_URL:', supabaseUrl ? 'Found' : 'Missing');
-    console.log('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? 'Found' : 'Missing');
+    console.warn('Supabase keys missing! Check .env.local');
 }
 
 export const supabase = (supabaseUrl && supabaseAnonKey)

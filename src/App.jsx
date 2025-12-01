@@ -3,13 +3,14 @@ import CourseGraph from './components/CourseGraph';
 import sistemasData from '../correlativas/sistemas.json';
 import mecanicaData from '../correlativas/mecanica.json';
 import { supabase } from './supabaseClient';
-import { Save, Loader } from 'lucide-react';
+import { Save, Loader, Download } from 'lucide-react';
 import './index.css';
 
 function App() {
   const [courses, setCourses] = useState([]);
   const [studentId, setStudentId] = useState('');
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [saveMessage, setSaveMessage] = useState(null);
 
   // Function to calculate availability based on current courses state
@@ -82,6 +83,52 @@ function App() {
     setCourses(calculateAvailability(initialCourses));
   };
 
+  const loadProgress = async () => {
+    if (!studentId.trim()) {
+      setSaveMessage({ type: 'error', text: 'Ingresa un ID o Legajo' });
+      return;
+    }
+
+    setLoading(true);
+    setSaveMessage(null);
+
+    try {
+      if (!supabase) {
+        throw new Error('Supabase client not initialized. Check .env.local');
+      }
+
+      const { data, error } = await supabase
+        .from('estudiantes')
+        .select('materias')
+        .eq('id', studentId)
+        .single();
+
+      if (error) throw error;
+
+      if (data && data.materias) {
+        setCourses((prevCourses) => {
+          const updatedCourses = prevCourses.map(course => {
+            const savedCourse = data.materias.find(m => m.id === course.id);
+            if (savedCourse) {
+              return { ...course, status: savedCourse.status };
+            }
+            return course;
+          });
+          return calculateAvailability(updatedCourses);
+        });
+        setSaveMessage({ type: 'success', text: 'Cargado correctamente!' });
+      } else {
+        setSaveMessage({ type: 'error', text: 'No se encontraron datos.' });
+      }
+    } catch (error) {
+      console.error('Error loading:', error);
+      setSaveMessage({ type: 'error', text: 'Error al cargar. Revisa la consola.' });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setSaveMessage(null), 3000);
+    }
+  };
+
   const saveProgress = async () => {
     if (!studentId.trim()) {
       setSaveMessage({ type: 'error', text: 'Ingresa un ID o Legajo' });
@@ -142,8 +189,17 @@ function App() {
             }}
           />
           <button
+            onClick={loadProgress}
+            disabled={loading || saving}
+            className="upload-btn"
+            style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+          >
+            {loading ? <Loader className="animate-spin" size={16} /> : <Download size={16} />}
+            {loading ? '...' : 'Cargar'}
+          </button>
+          <button
             onClick={saveProgress}
-            disabled={saving}
+            disabled={saving || loading}
             className="upload-btn"
             style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
           >
