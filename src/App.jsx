@@ -138,7 +138,9 @@ function App() {
         .from('estudiantes')
         .select('materias')
         .eq('id', studentId)
-        .single();
+        .maybeSingle();
+
+      console.log('Load result for', studentId, ':', { data, error });
 
       if (error) throw error;
 
