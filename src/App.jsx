@@ -57,11 +57,15 @@ function App() {
 
       // Only check for common availability if the course is available for the main user
       // AND there are classmates loaded
-      if (course.isAvailable && currentClassmates.length > 0) {
+      // User requirement: "materias que todos los legajos presentes y el tablero actual tendrian individualmente como Habilitada"
+      // This means status MUST be 'pending' AND isAvailable MUST be true for everyone.
+
+      if (course.status === 'pending' && course.isAvailable && currentClassmates.length > 0) {
         isCommon = true;
         for (const classmate of currentClassmates) {
           const classmateCourse = classmate.courses.find(c => c.id === course.id);
-          if (!classmateCourse || !classmateCourse.isAvailable) {
+          // Check if classmate has it as 'Habilitada' (pending + available)
+          if (!classmateCourse || classmateCourse.status !== 'pending' || !classmateCourse.isAvailable) {
             isCommon = false;
             break;
           }
@@ -276,7 +280,7 @@ function App() {
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      {courses.length > 0 && <h1 className="main-title">Correlativas</h1>}
+
 
 
 
