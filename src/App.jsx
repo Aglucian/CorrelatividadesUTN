@@ -276,8 +276,10 @@ function App() {
     saveMessage,
     classmates,
     classmateInput,
+    classmateInput,
     calculateAvailability, // dependencies of functions
-    calculateCommonAvailability
+    calculateCommonAvailability,
+    courses // Add courses to ensure saveProgress has latest data
   ]);
 
   return (
