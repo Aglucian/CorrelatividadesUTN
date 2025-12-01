@@ -250,7 +250,7 @@ function App() {
     setClassmates(prev => prev.filter(c => c.id !== id));
   };
 
-  const controlsData = {
+  const controlsData = React.useMemo(() => ({
     studentId,
     setStudentId,
     loadProgress,
@@ -263,7 +263,16 @@ function App() {
     setClassmateInput,
     addClassmate,
     removeClassmate
-  };
+  }), [
+    studentId,
+    loading,
+    saving,
+    saveMessage,
+    classmates,
+    classmateInput,
+    calculateAvailability, // dependencies of functions
+    calculateCommonAvailability
+  ]);
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>

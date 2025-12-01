@@ -9,6 +9,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import ControlsNode from './ControlsNode';
 import GlossaryNode from './GlossaryNode';
+import CourseNode from './CourseNode';
 
 const nodeTypes = {
     course: CourseNode,
@@ -80,11 +81,6 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
         }));
 
         // Add UI Nodes
-        // Position them relative to the graph content. 
-        // We'll put them slightly above the first level (level 1 is y=0)
-        // Level 1 is at y=0. Let's put controls at y=-300, x=500 (right side)
-        // Glossary at y=-300, x=-500 (left side)
-
         initialNodes.push({
             id: 'controls-node',
             type: 'controls',
