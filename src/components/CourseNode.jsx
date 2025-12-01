@@ -14,6 +14,11 @@ const CourseNode = ({ data, isConnectable }) => {
     statusClass += ' node-available';
   }
 
+  // Add common class if it's a common subject
+  if (data.isCommon) {
+    statusClass += ' node-common';
+  }
+
   return (
     <div className={`react-flow__node ${statusClass}`}>
       <Handle

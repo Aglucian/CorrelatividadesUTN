@@ -3,12 +3,14 @@ import CourseGraph from './components/CourseGraph';
 import sistemasData from '../correlativas/sistemas.json';
 import mecanicaData from '../correlativas/mecanica.json';
 import { supabase } from './supabaseClient';
-import { Save, Loader, Download } from 'lucide-react';
+import { Save, Loader, Download, Plus, X } from 'lucide-react';
 import './index.css';
 
 function App() {
   const [courses, setCourses] = useState([]);
   const [studentId, setStudentId] = useState('');
+  const [classmates, setClassmates] = useState([]); // Array of { id, courses }
+  const [classmateInput, setClassmateInput] = useState('');
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saveMessage, setSaveMessage] = useState(null);
@@ -47,6 +49,34 @@ function App() {
     });
   }, []);
 
+  // Calculate common availability across main user and classmates
+  const calculateCommonAvailability = useCallback((currentCourses, currentClassmates) => {
+    return currentCourses.map(course => {
+      // Start with the course as is (including its own isAvailable status)
+      let isCommon = false;
+
+      // Only check for common availability if the course is available for the main user
+      // AND there are classmates loaded
+      if (course.isAvailable && currentClassmates.length > 0) {
+        isCommon = true;
+        for (const classmate of currentClassmates) {
+          const classmateCourse = classmate.courses.find(c => c.id === course.id);
+          if (!classmateCourse || !classmateCourse.isAvailable) {
+            isCommon = false;
+            break;
+          }
+        }
+      }
+
+      return { ...course, isCommon };
+    });
+  }, []);
+
+  // Update courses when classmates change
+  useEffect(() => {
+    setCourses(prevCourses => calculateCommonAvailability(prevCourses, classmates));
+  }, [classmates, calculateCommonAvailability]);
+
   const handleCourseClick = useCallback((courseId) => {
     setCourses((prevCourses) => {
       const updatedCourses = prevCourses.map((course) => {
@@ -61,9 +91,10 @@ function App() {
         return course;
       });
 
-      return calculateAvailability(updatedCourses);
+      const withAvailability = calculateAvailability(updatedCourses);
+      return calculateCommonAvailability(withAvailability, classmates);
     });
-  }, [calculateAvailability]);
+  }, [calculateAvailability, calculateCommonAvailability, classmates]);
 
   const loadCareer = (data) => {
     const romanToNumber = { 'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5 };
@@ -77,10 +108,12 @@ function App() {
       // Prerequisites for the graph edges are a union of both
       prerequisites: [...new Set([...item.cursadas_necesarias, ...item.aprobadas_necesarias])].map(String),
       status: 'pending',
-      isAvailable: false // Will be calculated immediately
+      isAvailable: false, // Will be calculated immediately
+      isCommon: false
     }));
 
-    setCourses(calculateAvailability(initialCourses));
+    const withAvailability = calculateAvailability(initialCourses);
+    setCourses(calculateCommonAvailability(withAvailability, classmates));
   };
 
   const loadProgress = async () => {
@@ -114,7 +147,8 @@ function App() {
             }
             return course;
           });
-          return calculateAvailability(updatedCourses);
+          const withAvailability = calculateAvailability(updatedCourses);
+          return calculateCommonAvailability(withAvailability, classmates);
         });
         setSaveMessage({ type: 'success', text: 'Cargado correctamente!' });
       } else {
@@ -162,60 +196,189 @@ function App() {
     }
   };
 
+  const addClassmate = async () => {
+    if (!classmateInput.trim()) return;
+    if (classmates.some(c => c.id === classmateInput)) {
+      setSaveMessage({ type: 'error', text: 'Ya agregado.' });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('estudiantes')
+        .select('materias')
+        .eq('id', classmateInput)
+        .single();
+
+      if (error) throw error;
+
+      if (data && data.materias) {
+        // Create a temporary course list for the classmate to calculate THEIR availability
+        // We need the base structure of courses (without status) to map the classmate's status
+        // Since 'courses' state might have modified statuses, we should ideally use the base structure.
+        // However, assuming the structure (IDs, dependencies) doesn't change, we can use 'courses' as a template.
+
+        const classmateCourses = courses.map(c => {
+          const savedCourse = data.materias.find(m => m.id === c.id);
+          return {
+            ...c,
+            status: savedCourse ? savedCourse.status : 'pending',
+            isAvailable: false // Reset for calculation
+          };
+        });
+
+        const calculatedClassmateCourses = calculateAvailability(classmateCourses);
+
+        setClassmates(prev => [...prev, { id: classmateInput, courses: calculatedClassmateCourses }]);
+        setClassmateInput('');
+        setSaveMessage({ type: 'success', text: 'Compañero agregado!' });
+      } else {
+        setSaveMessage({ type: 'error', text: 'No encontrado.' });
+      }
+    } catch (error) {
+      console.error('Error adding classmate:', error);
+      setSaveMessage({ type: 'error', text: 'Error al buscar.' });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setSaveMessage(null), 3000);
+    }
+  };
+
+  const removeClassmate = (id) => {
+    setClassmates(prev => prev.filter(c => c.id !== id));
+  };
+
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      {courses.length > 0 && <h1 className="main-title">Correlativas</h1>}
+
       {courses.length > 0 && (
-        <div style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          zIndex: 100,
-          display: 'flex',
-          gap: '10px',
-          alignItems: 'center',
-          padding: '10px'
-        }} className="glass-panel">
-          <input
-            type="text"
-            placeholder="Legajo / ID"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            style={{
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid #475569',
-              background: '#1e293b',
-              color: 'white'
-            }}
-          />
-          <button
-            onClick={loadProgress}
-            disabled={loading || saving}
-            className="upload-btn"
-            style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
-          >
-            {loading ? <Loader className="animate-spin" size={16} /> : <Download size={16} />}
-            {loading ? '...' : 'Cargar'}
-          </button>
-          <button
-            onClick={saveProgress}
-            disabled={saving || loading}
-            className="upload-btn"
-            style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
-          >
-            {saving ? <Loader className="animate-spin" size={16} /> : <Save size={16} />}
-            {saving ? '...' : 'Guardar'}
-          </button>
-          {saveMessage && (
-            <span style={{
-              color: saveMessage.type === 'success' ? '#4ade80' : '#f87171',
-              fontSize: '14px',
-              marginLeft: '5px'
+        <>
+          <div className="glossary-container glass-panel">
+            <div className="glossary-item">
+              <div className="glossary-dot dot-cursada"></div>
+              <span>Cursada</span>
+            </div>
+            <div className="glossary-item">
+              <div className="glossary-dot dot-final"></div>
+              <span>Aprobada</span>
+            </div>
+            <div className="glossary-item">
+              <div className="glossary-dot dot-available"></div>
+              <span>Habilitada</span>
+            </div>
+            <div className="glossary-item">
+              <div className="glossary-dot dot-common"></div>
+              <span>En Comun</span>
+            </div>
+            <div className="glossary-item">
+              <div className="glossary-dot dot-pending"></div>
+              <span>No habilitada</span>
+            </div>
+          </div>
+
+          <div style={{
+            position: 'absolute',
+            top: '20px',
+            right: '20px',
+            zIndex: 100,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            gap: '10px'
+          }}>
+            <div className="glass-panel" style={{
+              display: 'flex',
+              gap: '10px',
+              alignItems: 'center',
+              padding: '10px'
             }}>
-              {saveMessage.text}
-            </span>
-          )}
-        </div>
+              <input
+                type="text"
+                placeholder="Legajo / ID"
+                value={studentId}
+                onChange={(e) => setStudentId(e.target.value)}
+                style={{
+                  padding: '8px',
+                  borderRadius: '4px',
+                  border: '1px solid #475569',
+                  background: '#1e293b',
+                  color: 'white'
+                }}
+              />
+              <button
+                onClick={loadProgress}
+                disabled={loading || saving}
+                className="upload-btn"
+                style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+              >
+                {loading ? <Loader className="animate-spin" size={16} /> : <Download size={16} />}
+                {loading ? '...' : 'Cargar'}
+              </button>
+              <button
+                onClick={saveProgress}
+                disabled={saving || loading}
+                className="upload-btn"
+                style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+              >
+                {saving ? <Loader className="animate-spin" size={16} /> : <Save size={16} />}
+                {saving ? '...' : 'Guardar'}
+              </button>
+            </div>
+
+            <div className="glass-panel" style={{ padding: '10px', width: '100%' }}>
+              <div style={{ display: 'flex', gap: '5px' }}>
+                <input
+                  type="text"
+                  placeholder="Legajo Compañero"
+                  value={classmateInput}
+                  onChange={(e) => setClassmateInput(e.target.value)}
+                  style={{
+                    padding: '8px',
+                    borderRadius: '4px',
+                    border: '1px solid #475569',
+                    background: '#1e293b',
+                    color: 'white',
+                    flex: 1,
+                    width: '0px' // Flex trick
+                  }}
+                />
+                <button
+                  onClick={addClassmate}
+                  disabled={loading}
+                  className="upload-btn"
+                  style={{ padding: '8px' }}
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+
+              <div className="classmates-container">
+                {classmates.map(c => (
+                  <div key={c.id} className="classmate-chip">
+                    <span>{c.id}</span>
+                    <X
+                      size={14}
+                      className="remove-classmate"
+                      onClick={() => removeClassmate(c.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {saveMessage && (
+              <div className="glass-panel" style={{
+                padding: '8px 12px',
+                color: saveMessage.type === 'success' ? '#4ade80' : '#f87171',
+                fontSize: '14px'
+              }}>
+                {saveMessage.text}
+              </div>
+            )}
+          </div>
+        </>
       )}
 
       {courses.length === 0 ? (
