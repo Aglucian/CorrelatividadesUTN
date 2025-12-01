@@ -149,7 +149,7 @@ function App() {
             if (savedCourse) {
               return { ...course, status: savedCourse.status };
             }
-            return course;
+            return { ...course, status: 'pending' };
           });
           const withAvailability = calculateAvailability(updatedCourses);
           return calculateCommonAvailability(withAvailability, classmates);
