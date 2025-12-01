@@ -90,7 +90,8 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
             data: controlsData,
             position: { x: 400, y: -250 },
             draggable: false,
-            zIndex: 1000
+            zIndex: 1000,
+            className: 'transparent-node'
         });
 
         initialNodes.push({
@@ -99,7 +100,8 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
             data: {},
             position: { x: -600, y: -250 },
             draggable: false,
-            zIndex: 1000
+            zIndex: 1000,
+            className: 'transparent-node'
         });
 
         initialNodes.push({
@@ -108,7 +110,8 @@ const CourseGraph = ({ courses, onCourseClick, controlsData }) => {
             data: {},
             position: { x: 0, y: -350 }, // Centered above everything
             draggable: false,
-            zIndex: 1000
+            zIndex: 1000,
+            className: 'transparent-node'
         });
 
         // Create Edges

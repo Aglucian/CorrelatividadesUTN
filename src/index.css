@@ -40,52 +40,13 @@ body {
   background: var(--panel-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--panel-border);
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
 
-/* React Flow Customization */
-.react-flow__node {
-  font-size: 12px;
-  width: auto;
-  border-radius: 0;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--text-color);
-  padding: 0;
-  box-shadow: none;
-}
+  /* Node States */
+  .node-pending {
+    border-color: #64748b;
+    /* Slate 500 */
+  }
 
-.react-flow__node:hover {
-  transform: translateY(-2px);
-  /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4); */
-}
-
-/* Node States */
-.node-pending {
-  border-color: #64748b;
-  /* Slate 500 */
-}
-
-.node-cursada {
-  border-color: var(--warning-color);
-  box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
-}
-
-.node-final {
-  border-color: var(--success-color);
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
-  background: rgba(34, 197, 94, 0.1);
-}
-
-/* Edge Animation */
-.react-flow__edge-path {
-  stroke: #475569;
-  stroke-width: 2;
 }
 
 .edge-animated .react-flow__edge-path {
